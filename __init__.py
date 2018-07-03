@@ -42,6 +42,10 @@ class DecipherIndustriesSkill(MycroftSkill):
                 self.speak_dialog("entity.state", data={
                     "entity": " ".join(matched_entity.name), 
                     "state": "off" if matched_entity.state == 0 else "on"})
+            else:
+                self.speak_dialog("no.match")
+        else:
+            self.speak_dialog("something.has.gone.wrong")
 
         
 def create_skill():
