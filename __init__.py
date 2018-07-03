@@ -25,7 +25,7 @@ class DecipherIndustriesSkill(MycroftSkill):
         if res.status_code == 200:
             json_data = res.json()
             switches = json_data["switches"]
-            for data in switches:
+            for key, data in switches.items():
                 split_name = data["name"].split("_")
                 i = 0
                 matches = 0
