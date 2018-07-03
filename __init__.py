@@ -19,6 +19,7 @@ class DecipherIndustriesSkill(MycroftSkill):
         spoken_entity = message.data.get("Entity")
         split_spoken_entity = spoken_entity.split()
         matched_entity = Match()
+        matched_entity.name = "unknown"
         matched_entity.matches = 0
 
         try:
@@ -41,9 +42,7 @@ class DecipherIndustriesSkill(MycroftSkill):
                         matched_entity.state = data.state
 
                 if matched_entity.matches > 0:
-                    self.speak_dialog("entity.state", data={
-                        "entity": " ".join(matched_entity.name), 
-                        "state": "off" if matched_entity.state == 0 else "on"})
+                    self.speak_dialog("entity.state", data={"entity": "test", "state": "off"})
                 else:
                     self.speak_dialog("no.match")
             else:
