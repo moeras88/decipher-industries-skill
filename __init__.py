@@ -38,8 +38,6 @@ class DecipherIndustriesSkill(MycroftSkill):
                         while j < len(split_name):
                             if split_spoken_entity[i].lower() == split_name[j].lower():
                                 matches += 1
-                            else:
-                                matches -= 1
                             j += 1
                         i += 1
                     if matches > matched_entity.matches:
