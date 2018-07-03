@@ -23,6 +23,7 @@ class DecipherIndustriesSkill(MycroftSkill):
         matched_entity.matches = 0
 
         try:
+            self.speak_dialog("wait")
             res = requests.get(self.api_url + '/state')
             if res.status_code == 200:
                 json_data = res.json()
@@ -42,7 +43,9 @@ class DecipherIndustriesSkill(MycroftSkill):
                         matched_entity.state = data.state
 
                 if matched_entity.matches > 0:
-                    self.speak_dialog("entity.state", data={"entity": "test", "state": "off"})
+                    self.speak_dialog("entity.state", data={
+                        "entity": " ".join(matched_entity.name), 
+                        "state": "off" if matched_entity.state == 0 else "on"})
                 else:
                     self.speak_dialog("no.match")
             else:
