@@ -21,33 +21,36 @@ class DecipherIndustriesSkill(MycroftSkill):
         matched_entity = Match()
         matched_entity.matches = 0
 
-        res = requests.get(self.api_url + '/state')
-        if res.status_code == 200:
-            json_data = res.json()
-            switches = json_data["switches"]
-            for key, data in switches.items():
-                split_name = data["name"].split("_")
-                i = 0
-                matches = 0
-                while i < len(split_spoken_entity):
-                    j = 0
-                    while j < len(split_name):
-                        if split_spoken_entity[i] == split_name[j]:
-                            matches += 1
-                if matches > matched_entity.matches:
-                    matched_entity.matches = matches
-                    matched_entity.name = data.name
-                    matched_entity.state = data.state
+        try:
+            res = requests.get(self.api_url + '/state')
+            if res.status_code == 200:
+                json_data = res.json()
+                switches = json_data["switches"]
+                for key, data in switches.items():
+                    split_name = data["name"].split("_")
+                    i = 0
+                    matches = 0
+                    while i < len(split_spoken_entity):
+                        j = 0
+                        while j < len(split_name):
+                            if split_spoken_entity[i] == split_name[j]:
+                                matches += 1
+                    if matches > matched_entity.matches:
+                        matched_entity.matches = matches
+                        matched_entity.name = data.name
+                        matched_entity.state = data.state
 
-            if matched_entity.matches > 0:
-                self.speak_dialog("entity.state", data={
-                    "entity": " ".join(matched_entity.name), 
-                    "state": "off" if matched_entity.state == 0 else "on"})
+                if matched_entity.matches > 0:
+                    self.speak_dialog("entity.state", data={
+                        "entity": " ".join(matched_entity.name), 
+                        "state": "off" if matched_entity.state == 0 else "on"})
+                else:
+                    self.speak_dialog("no.match")
             else:
-                self.speak_dialog("no.match")
-        else:
+                self.speak_dialog("something.has.gone.wrong")
+        except requests.exceptions.RequestException as e:
+            print(e)
             self.speak_dialog("something.has.gone.wrong")
-
         
 def create_skill():
     return DecipherIndustriesSkill()
