@@ -1,1 +1,1 @@
-(of|the) (?P<Object>.*)
+(of|the) (?P<Entity>.*)
