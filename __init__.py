@@ -38,16 +38,18 @@ class DecipherIndustriesSkill(MycroftSkill):
                         while j < len(split_name):
                             if split_spoken_entity[i].lower() == split_name[j].lower():
                                 matches += 1
+                            else:
+                                matches -= 1
                             j += 1
                         i += 1
                     if matches > matched_entity.matches:
                         matched_entity.matches = matches
-                        matched_entity.name = data["name"]
+                        matched_entity.name = " ".join(split_name)
                         matched_entity.state = data["state"]
 
                 if matched_entity.matches > 0:
                     self.speak_dialog("entity.state", data={
-                        "entity": " ".join(matched_entity.name), 
+                        "entity": matched_entity.name, 
                         "state": "off" if matched_entity.state == 0 else "on"})
                 else:
                     self.speak_dialog("no.match")
