@@ -42,8 +42,8 @@ class DecipherIndustriesSkill(MycroftSkill):
                         i += 1
                     if matches > matched_entity.matches:
                         matched_entity.matches = matches
-                        matched_entity.name = data.name
-                        matched_entity.state = data.state
+                        matched_entity.name = data["name"]
+                        matched_entity.state = data["state"]
 
                 if matched_entity.matches > 0:
                     self.speak_dialog("entity.state", data={
