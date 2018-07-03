@@ -1,8 +1,8 @@
 ## decipher industries
-Skill for decipher industries
+Skill for decipher industries managing entities
 
 ## Description 
-
+This skill can be used to manage certain things
 
 ## Examples 
 * "State of the bathroom mirror light?"
