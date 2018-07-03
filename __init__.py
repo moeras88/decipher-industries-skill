@@ -3,7 +3,6 @@ from mycroft.skills.core import MycroftSkill, intent_handler
 from mycroft.util.log import LOG
 
 import requests
-import json
 
 class Match(object):
     pass
