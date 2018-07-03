@@ -21,6 +21,7 @@ class DecipherIndustriesSkill(MycroftSkill):
         matched_entity = Match()
         matched_entity.name = "unknown"
         matched_entity.matches = 0
+        matched_entity.state = 0
 
         try:
             self.speak_dialog("wait")
@@ -37,6 +38,8 @@ class DecipherIndustriesSkill(MycroftSkill):
                         while j < len(split_name):
                             if split_spoken_entity[i] == split_name[j]:
                                 matches += 1
+                            j += 1
+                        i += 1
                     if matches > matched_entity.matches:
                         matched_entity.matches = matches
                         matched_entity.name = data.name
